@@ -1,0 +1,13 @@
+{
+  "name": "apartman-sikayet-sistemi",
+  "version": "1.0.0",
+  "description": "Apartman Şikayet Yönetim Sistemi",
+  "private": true,
+  "scripts": {
+    "build": "cd backend/frontend && npm install && npm run build"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
