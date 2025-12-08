@@ -1,0 +1,31 @@
+.profil-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.profil-container h2 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.profil-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.profil-card p {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #ecf0f1;
+  color: #34495e;
+}
+
+.profil-card p:last-child {
+  border-bottom: none;
+}
+
+.profil-card strong {
+  color: #2c3e50;
+}
