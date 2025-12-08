@@ -3,24 +3,6 @@
   "buildCommand": "cd backend/frontend && npm install && npm run build",
   "outputDirectory": "backend/frontend/build",
   "installCommand": "cd backend/frontend && npm install",
-  "framework": null,
-  "builds": [
-    {
-      "src": "backend/frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    },
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "api/init-db.js",
-      "use": "@vercel/node"
-    }
-  ],
   "rewrites": [
     {
       "source": "/api/init-db",
@@ -31,11 +13,7 @@
       "destination": "/api/index.js"
     },
     {
-      "source": "/static/:path*",
-      "destination": "/static/:path*"
-    },
-    {
-      "source": "/:path*",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
