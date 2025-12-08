@@ -62,18 +62,16 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // Development'ta alter: true (tabloları güncellemek için)
 const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
 
+// Vercel'de tabloları oluştur (eğer yoksa)
 sequelize.sync({ 
-  alter: !isProduction, // Production'da false, development'ta true
+  alter: false, // Production'da alter kullanma
   force: false // Hiçbir zaman force kullanma (veri kaybı olur)
 })
   .then(() => {
-    console.log('✅ Veritabanı tabloları senkronize edildi');
-    if (isProduction) {
-      console.log('ℹ️  Production modu: Tablolar değiştirilmedi (veri korunuyor)');
-    }
+    console.log('✅ Veritabanı tabloları hazır');
   })
   .catch(err => {
-    console.error('❌ Veritabanı sync hatası:', err);
+    console.error('❌ Veritabanı sync hatası:', err.message);
     // Production'da sync hatası kritik değil (tablolar zaten var olabilir)
     if (!isProduction) {
       console.error('Detay:', err);
