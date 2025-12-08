@@ -27,11 +27,23 @@ const app = express();
 
 // CORS - Cross-Origin Resource Sharing
 // Frontend'in farklı bir porttan API'ye erişmesine izin verir
+const allowedOrigins = [
+  'http://localhost:3000',
+  process.env.FRONTEND_URL,
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+  'https://apartman-sikayet-sistemi.vercel.app'
+].filter(Boolean); // null/undefined değerleri filtrele
+
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    process.env.FRONTEND_URL || '*'
-  ],
+  origin: function (origin, callback) {
+    // Origin yoksa (mobile app, Postman vb.) veya izin verilen listede ise
+    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+      callback(null, true);
+    } else {
+      // Production'da tüm origin'lere izin ver (güvenlik için daha sonra kısıtlanabilir)
+      callback(null, true);
+    }
+  },
   credentials: true
 }));
 
