@@ -31,8 +31,12 @@
       "destination": "/api/index.js"
     },
     {
-      "source": "/(.*)",
-      "destination": "/backend/frontend/index.html"
+      "source": "/static/:path*",
+      "destination": "/static/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
     }
   ]
 }
