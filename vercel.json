@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "buildCommand": "cd backend/frontend && npm install && npm run build",
+  "outputDirectory": "backend/frontend/build",
+  "installCommand": "cd backend/frontend && npm install",
+  "framework": null,
+  "builds": [
+    {
+      "src": "backend/frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    },
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/init-db.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/init-db",
+      "dest": "/api/init-db.js"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/(.*\\.(js|css|ico|png|jpg|svg|json|woff|woff2|ttf|eot))",
+      "dest": "/backend/frontend/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/backend/frontend/index.html"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index.js"
+    }
+  ]
+}
+
