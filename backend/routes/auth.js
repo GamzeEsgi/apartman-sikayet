@@ -68,7 +68,28 @@ router.post('/kayit', async (req, res) => {
   } catch (err) {
     // Kayıt sırasında hata oluştu
     console.error('Kayıt hatası:', err);
-    res.status(500).json({ mesaj: 'Kayıt hatası', hata: err.message });
+    console.error('Hata detayı:', err.stack);
+    
+    // Veritabanı hatası kontrolü
+    if (err.name === 'SequelizeConnectionError' || err.name === 'SequelizeDatabaseError') {
+      return res.status(500).json({ 
+        mesaj: 'Veritabanı bağlantı hatası. Lütfen daha sonra tekrar deneyin.',
+        hata: process.env.NODE_ENV === 'production' ? 'Database error' : err.message
+      });
+    }
+    
+    // Tablo yoksa
+    if (err.name === 'SequelizeTableDoesNotExistError') {
+      return res.status(500).json({ 
+        mesaj: 'Veritabanı tabloları oluşturulmamış. Lütfen /api/init-db endpoint\'ini çağırın.',
+        hata: process.env.NODE_ENV === 'production' ? 'Tables not initialized' : err.message
+      });
+    }
+    
+    res.status(500).json({ 
+      mesaj: 'Kayıt hatası', 
+      hata: process.env.NODE_ENV === 'production' ? 'Internal server error' : err.message 
+    });
   }
 });
 
