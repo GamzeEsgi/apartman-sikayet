@@ -68,3 +68,4 @@ Veritabanı kurulduktan sonra kayıt olmayı tekrar deneyin.
 
 **Not:** İlk kurulumdan sonra `/api/init-db` endpoint'ini tekrar çağırmanıza gerek yok. Tablolar zaten oluşturulmuş olacak.
 
+

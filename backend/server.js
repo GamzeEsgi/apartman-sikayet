@@ -106,7 +106,17 @@ app.get('/', (req, res) => {
   res.json({ 
     message: 'Apartman Şikayet Sistemi API çalışıyor',
     version: '1.0.0',
-    status: 'active'
+    status: 'active',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// API health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'ok',
+    message: 'API is running',
+    timestamp: new Date().toISOString()
   });
 });
 
